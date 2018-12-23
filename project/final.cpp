@@ -68,12 +68,16 @@ void inv(float** matrix, int row_dim, int col_dim,float** inverse)
 		return;
 	}
 }
+
+/** matrix print */
 void print(float** matrix, int row_dim, int col_dim)
 {
 	for(int i=0; i < row_dim; i++)
 	{
 		for(int j=0; j < row_dim; j++)
-			cout << matrix[i][j];
+		{
+			cout << matrix[i][j]<<" ";
+		}
 		cout<<endl;
 	}
 }
@@ -84,8 +88,8 @@ int main ()
 	srand(0);
 	
 	//set dimention
-	int row_dim = 2;
-	int col_dim = 2;
+	int row_dim = 6;
+	int col_dim = 6;
 	
 	//initial array
 	float** inverse = new float* [row_dim];
@@ -96,15 +100,22 @@ int main ()
         result[i] = new float [col_dim];
         for(int j = 0;j < col_dim; j++)
         {
-            inverse[i][j] = float(rand()%5);
+            inverse[i][j] = float(rand()%9);
             result[i][j] = (i == j)?1.0f:0.0f;
         }
     }
+    
+    //check input
     print(inverse, row_dim, col_dim);
+    
     cout << "----------------------\n";
+    
     //test inverse
     inv(inverse, row_dim, col_dim, result);
+    
+    //check result
     print(result, row_dim, col_dim);
-    //check result 
+    
+    
 	return 0;
 }
