@@ -11,7 +11,7 @@ void inv(float** matrix, int row_dim, int col_dim,float** inverse)
 		for(int j = 0;j < col_dim; j++)
 		{
 			float tmp = 0;
-			int p = 0;
+			int p = -1;
 			for(int i = j; i < row_dim; i++)
 				if(abs(matrix[i][j]) > tmp) 
 				{
@@ -19,7 +19,7 @@ void inv(float** matrix, int row_dim, int col_dim,float** inverse)
 					p = i;
 				}
 			// have zero row
-			if(p == 0)
+			if(p == -1)
 			{ 
 				cout << "it's singular";
 				return;
