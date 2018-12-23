@@ -3,32 +3,39 @@
 #include <algorithm>
 using namespace std;
 
-
+/** matrix inverse */
 void inv(float** matrix, int row_dim, int col_dim,float** inverse)
 {
+	// check square matrix
 	if(col_dim == row_dim)
 	{
 		for(int j = 0;j < col_dim; j++)
 		{
+			//find max magnitude
 			float tmp = 0;
 			int p = -1;
 			for(int i = j; i < row_dim; i++)
+			{
 				if(abs(matrix[i][j]) > tmp) 
 				{
 					tmp = abs(matrix[i][j]);
 					p = i;
 				}
+			}
+			
 			// have zero row
 			if(p == -1)
-			{ 
+			{
 				cout << "it's singular";
 				return;
 			}
+			
 			if( j!=p )
 			{
 				swap(matrix[j],matrix[p]);
 				swap(inverse[j],inverse[p]);
 			}
+			
 			//row operation
 			for (int i = 0; i < row_dim; i++)
 			{
@@ -72,6 +79,9 @@ void print(float** matrix, int row_dim, int col_dim)
 
 int main ()
 {
+	//random seed
+	srand(0);
+	
 	//set dimention
 	int row_dim = 2;
 	int col_dim = 2;
@@ -85,6 +95,7 @@ int main ()
         result[i] = new float [col_dim];
         for(int j = 0;j < col_dim; j++)
         {
+<<<<<<< HEAD
             inverse[i][j] = rand();
         }
     }
@@ -95,6 +106,37 @@ int main ()
     
     //check result
     print(result, row_dim, col_dim);
+=======
+            inverse[i][j] = rand() % 10 + 1;
+            result[i][j] = (i == j)?1.0f:0.0f;
+        }
+    }
+    
+    //check input
+    for(int i = 0; i < row_dim; i++)
+    {
+        for(int j = 0;j < col_dim; j++)
+        {
+            cout<<inverse[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    
+    //inverse function
+    inv(inverse, row_dim, col_dim, result);
+    
+    //check result
+    cout<<endl;
+    for(int i = 0; i < row_dim; i++)
+    {
+        for(int j = 0;j < col_dim; j++)
+        {
+            cout<<result[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    
+>>>>>>> df6927a45b750342919bdc3e81e784687a970f42
     
 	return 0;
 }
