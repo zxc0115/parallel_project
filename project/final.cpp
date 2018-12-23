@@ -48,7 +48,7 @@ void inv(float** matrix, int row_dim, int col_dim,float** inverse)
 					for (int k = j + 1;k < col_dim; k++)
 					{
 						matrix[i][k] -= (pivot * matrix[j][k]);
-						inverse[i][k] -= (pivot * matrix[j][k]);
+						inverse[i][k] -= (pivot * inverse[j][k]);
 					}
 				}
 			}
@@ -60,13 +60,21 @@ void inv(float** matrix, int row_dim, int col_dim,float** inverse)
 		return;
 	}
 }
-
+void print(float** matrix, int row_dim, int col_dim)
+{
+	for(int i=0; i < row_dim; i++)
+	{
+		for(int j=0; j < row_dim; j++)
+			cout << matrix[i][j];
+		cout<<endl;
+	}
+}
 
 int main ()
 {
 	//set dimention
-	int row_dim = 4;
-	int col_dim = 4;
+	int row_dim = 2;
+	int col_dim = 2;
 	
 	//initial array
 	float** inverse = new float* [row_dim];
@@ -77,15 +85,16 @@ int main ()
         result[i] = new float [col_dim];
         for(int j = 0;j < col_dim; j++)
         {
-            inverse[i][j] = (i == j)?1.0f:0.0f;
+            inverse[i][j] = rand();
         }
     }
-    
+    print(inverse, row_dim, col_dim);
+    cout << "----------------------/n";
     //test inverse
     inv(inverse, row_dim, col_dim, result);
     
     //check result
-    cout<<inverse[1][1]<<endl;
+    print(result, row_dim, col_dim);
     
 	return 0;
 }
