@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <algorithm>
+#include "omp.h"
 using namespace std;
 
 /** matrix inverse */
@@ -37,6 +38,7 @@ void inv(float** matrix, int row_dim, int col_dim,float** inverse)
 			}
 			
 			//row operation
+			//#pragma omp parallel for
 			for (int i = 0; i < row_dim; i++)
 			{
 				if (i == j) 
@@ -88,13 +90,8 @@ int main ()
 	srand(0);
 	
 	//set dimention
-<<<<<<< HEAD
-	int row_dim = 4;
-	int col_dim = 4;
-=======
-	int row_dim = 6;
-	int col_dim = 6;
->>>>>>> 1bb961d3b0fcdf72b14e3ed12d0d41f1e88e68ab
+	int row_dim = 2000;
+	int col_dim = 2000;
 	
 	//initial array
 	float** inverse = new float* [row_dim];
@@ -111,7 +108,7 @@ int main ()
     }
     
     //check input
-    print(inverse, row_dim, col_dim);
+    //print(inverse, row_dim, col_dim);
     
     cout << "----------------------\n";
     
@@ -119,7 +116,7 @@ int main ()
     inv(inverse, row_dim, col_dim, result);
     
     //check result
-    print(result, row_dim, col_dim);
+    //print(result, row_dim, col_dim);
     
     
 	return 0;
