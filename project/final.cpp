@@ -1,9 +1,10 @@
 #include <iostream>
 #include <cmath>
 #include <algorithm>
-
 using namespace std;
-void inv(float ** matrix, int row_dim, int col_dim,float** inverse)
+
+
+void inv(float** matrix, int row_dim, int col_dim,float** inverse)
 {
 	if(col_dim == row_dim)
 	{
@@ -21,12 +22,12 @@ void inv(float ** matrix, int row_dim, int col_dim,float** inverse)
 			if(p == 0)
 			{ 
 				cout << "it's singular";
-				return NULL;
+				return;
 			}
 			if( j!=p )
 			{
-				swap(matrix[j],matrix[p])
-				swap(inverse[j],inverse[p])
+				swap(matrix[j],matrix[p]);
+				swap(inverse[j],inverse[p]);
 			}
 			//row operation
 			for (int i = 0; i < row_dim; i++)
@@ -56,19 +57,35 @@ void inv(float ** matrix, int row_dim, int col_dim,float** inverse)
 	else
 	{
 		cout << "it isn't sqare matrix";
-		return NULL;
+		return;
 	}
 }
+
+
 int main ()
 {
-	float** inverse = new float* [row_dim];
-                for(int i = 0; i < row_dim; i++)
-                {
-                        inverse[i] = new float [col_dim];
-                        for(int j = 0;j < col_dim; j++)
-                                if(i == j) inverse[i][j]=1;
-                                else inverse[i][j]=0;
-                }
+	//set dimention
+	int row_dim = 4;
+	int col_dim = 4;
 	
+	//initial array
+	float** inverse = new float* [row_dim];
+	float** result = new float* [row_dim];
+    for(int i = 0; i < row_dim; i++)
+    {
+        inverse[i] = new float [col_dim];
+        result[i] = new float [col_dim];
+        for(int j = 0;j < col_dim; j++)
+        {
+            inverse[i][j] = (i == j)?1.0f:0.0f;
+        }
+    }
+    
+    //test inverse
+    inv(inverse, row_dim, col_dim, result);
+    
+    //check result
+    cout<<inverse[1][1]<<endl;
+    
 	return 0;
 }
