@@ -41,22 +41,23 @@ void inv(float** matrix, int row_dim, int col_dim,float** inverse)
 			{
 				if (i == j) 
 				{
+					float pivot = matrix[i][j];
 					for (int k =0;k < col_dim; k++)
                        			{
-						matrix[i][k] /= matrix[i][j];
-						inverse[i][k] /= matrix[i][j];
+						inverse[i][k] /= pivot;
+						matrix[i][k] /= pivot;
 					}
 					matrix[i][j]=1; 
 				}
 				else 
 				{
 					float pivot = matrix[i][j]/matrix[j][j];
-					matrix[i][j]=0;
 					for (int k = 0;k < col_dim; k++)
 					{
 						matrix[i][k] -= (pivot * matrix[j][k]);
 						inverse[i][k] -= (pivot * inverse[j][k]);
 					}
+					matrix[i][j]=0;
 				}
 			}
 		}
@@ -95,7 +96,7 @@ int main ()
         result[i] = new float [col_dim];
         for(int j = 0;j < col_dim; j++)
         {
-            inverse[i][j] = rand()%5;
+            inverse[i][j] = float(rand()%5);
             result[i][j] = (i == j)?1.0f:0.0f;
         }
     }
