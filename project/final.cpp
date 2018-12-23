@@ -84,8 +84,8 @@ int main ()
 	srand(0);
 	
 	//set dimention
-	int row_dim = 2;
-	int col_dim = 2;
+	int row_dim = 4;
+	int col_dim = 4;
 	
 	//initial array
 	float** inverse = new float* [row_dim];
