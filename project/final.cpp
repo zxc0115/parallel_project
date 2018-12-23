@@ -25,7 +25,11 @@ void inv(float** matrix, int row_dim, int col_dim,float** inverse)
 			
 			// have zero row
 			if(p == -1)
+<<<<<<< HEAD
 			{
+=======
+			{ 
+>>>>>>> f13312c5ad3673ddcb5f5bb07d8403dd30c86593
 				cout << "it's singular";
 				return;
 			}
