@@ -38,12 +38,12 @@ void inv(float** matrix, int row_dim, int col_dim,float** inverse)
 			}
 			
 			//row operation
-			//#pragma omp parallel for
 			for (int i = 0; i < row_dim; i++)
 			{
 				if (i == j) 
 				{
 					float pivot = matrix[i][j];
+					#pragma omp parallel for
 					for (int k =0;k < col_dim; k++)
                        			{
 						inverse[i][k] /= pivot;
@@ -54,6 +54,7 @@ void inv(float** matrix, int row_dim, int col_dim,float** inverse)
 				else 
 				{
 					float pivot = matrix[i][j]/matrix[j][j];
+					#pragma omp parallel for
 					for (int k = 0;k < col_dim; k++)
 					{
 						matrix[i][k] -= (pivot * matrix[j][k]);
@@ -96,27 +97,28 @@ int main ()
 	//initial array
 	float** inverse = new float* [row_dim];
 	float** result = new float* [row_dim];
-    for(int i = 0; i < row_dim; i++)
-    {
-        inverse[i] = new float [col_dim];
-        result[i] = new float [col_dim];
-        for(int j = 0;j < col_dim; j++)
-        {
-            inverse[i][j] = float(rand()%9);
-            result[i][j] = (i == j)?1.0f:0.0f;
-        }
-    }
-    
-    //check input
-    //print(inverse, row_dim, col_dim);
-    
-    cout << "----------------------\n";
-    
-    //test inverse
-    inv(inverse, row_dim, col_dim, result);
-    
-    //check result
-    //print(result, row_dim, col_dim);
+	
+	for(int i = 0; i < row_dim; i++)
+	{
+		inverse[i] = new float [col_dim];
+		result[i] = new float [col_dim];
+		for(int j = 0;j < col_dim; j++)
+		{
+			inverse[i][j] = float(rand()%9);
+			result[i][j] = (i == j)?1.0f:0.0f;
+		}
+	}
+
+	//check input
+	//print(inverse, row_dim, col_dim);
+
+	cout << "----------------------\n";
+
+	//test inverse
+	inv(inverse, row_dim, col_dim, result);
+
+	//check result
+	//print(result, row_dim, col_dim);
     
     
 	return 0;
