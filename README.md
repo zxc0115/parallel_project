@@ -1,4 +1,4 @@
-# parallel_project
+# parallel_matrix
 
 Parallel Matrix Operation with CUDA
 > * Operation
